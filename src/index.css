@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+    background: #f5f6f8;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Area cetak tiket antrian ─────────────────────────────────────── */
+#print-area {
+    display: none;
+}
+
+@media print {
+    @page {
+        size: 58mm auto;
+        margin: 4mm;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #print-area,
+    #print-area * {
+        visibility: visible;
+    }
+
+    #print-area {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50mm;
+        text-align: center;
+        color: #000;
+    }
+
+    /* Tiket dicetak 2 salinan: tiap salinan di lembar/halaman terpisah. */
+    #print-area .ticket-copy {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    #print-area .ticket-copy + .ticket-copy {
+        break-before: page;
+        page-break-before: always;
+        margin-top: 6mm;
+        padding-top: 6mm;
+        border-top: 1px dashed #000;
+    }
+
+    #print-area .ticket-title {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    #print-area .ticket-sub {
+        font-size: 11px;
+    }
+
+    #print-area .ticket-code {
+        font-size: 44px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        margin: 4mm 0;
+    }
+
+    #print-area .ticket-line {
+        border-top: 1px dashed #000;
+        margin: 3mm 0;
+    }
+
+    #print-area .ticket-meta {
+        font-size: 11px;
+        text-align: left;
+    }
+}
